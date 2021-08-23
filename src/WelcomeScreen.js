@@ -28,6 +28,7 @@ function WelcomeScreen() {
       </>
     );
   }
+  return <>Jesteś zalogowany!</>;
 }
 
 export default WelcomeScreen;

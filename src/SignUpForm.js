@@ -58,7 +58,16 @@ function SignUpForm({ setLogin }) {
           lastLogin: Date.now(),
         };
         databaseRef.child("users/" + user.uid).set(userData);
-        console.log("user created");
+        Swal.fire({
+          title: "Utworzyłeś konto",
+          showClass: {
+            popup: "animate__animated animate__fadeInDown",
+          },
+          hideClass: {
+            popup: "animate__animated animate__fadeOutUp",
+          },
+        });
+        setLogin(true);
       })
       .catch((err) => {
         if (err.code == "auth/email-already-in-use") {
@@ -74,6 +83,7 @@ function SignUpForm({ setLogin }) {
             text: err.message,
           });
         }
+        setLogin(false);
       });
   }
   return (
