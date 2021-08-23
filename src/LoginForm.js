@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
 import validator from "validator";
 import Swal from "sweetalert2";
-import { database, auth } from "./firebase";
+import { db, auth } from "./firebase";
 function LoginForm({ setLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,11 +34,10 @@ function LoginForm({ setLogin }) {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         const user = auth.currentUser;
-        const databaseRef = database.ref();
         const userData = {
           lastLogin: Date.now(),
         };
-        databaseRef.child("users/" + user.uid).update(userData);
+        db.collection("users").doc(user.uid).set(userData);
         Swal.fire({
           title: "Zalogowałeś się na konto",
           showClass: {
@@ -48,7 +47,7 @@ function LoginForm({ setLogin }) {
             popup: "animate__animated animate__fadeOutUp",
           },
         });
-        setLogin(true);
+        setLogin(true, user.uid);
       })
       .catch((err) => {
         if (err.code === "auth/user-not-found") {

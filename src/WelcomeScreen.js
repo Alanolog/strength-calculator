@@ -1,14 +1,26 @@
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
-
+import { db } from "./firebase";
 function WelcomeScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  function setLogin(state) {
+  const [userUID, setUserUID] = useState("");
+  function setLogin(state, uid = "") {
     setIsLoggedIn(state);
+    setUserUID(uid);
   }
-
+  function getData() {
+    let html = "";
+    console.log(userUID);
+    db.collection("users")
+      .doc(userUID)
+      .get()
+      .then((doc) => {
+        html = doc.data().email;
+      });
+    console.log(html);
+    return html;
+  }
   if (!isLoggedIn) {
     return (
       <>
@@ -27,8 +39,9 @@ function WelcomeScreen() {
         </div>
       </>
     );
+  } else {
+    return <>Jesteś zalogowany jako: {getData()}</>;
   }
-  return <>Jesteś zalogowany!</>;
 }
 
 export default WelcomeScreen;

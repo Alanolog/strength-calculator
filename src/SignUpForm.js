@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
 import validator from "validator";
 import Swal from "sweetalert2";
-import { database, auth } from "./firebase";
+import { db, auth } from "./firebase";
 function SignUpForm({ setLogin }) {
   const [email, setEmail] = useState("");
   const [email2, setEmail2] = useState("");
@@ -52,12 +52,11 @@ function SignUpForm({ setLogin }) {
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         const user = auth.currentUser;
-        const databaseRef = database.ref();
         const userData = {
           email: email,
           lastLogin: Date.now(),
         };
-        databaseRef.child("users/" + user.uid).set(userData);
+        db.collection("users").doc(user.uid).set(userData);
         Swal.fire({
           title: "Utworzyłeś konto",
           showClass: {
@@ -67,10 +66,10 @@ function SignUpForm({ setLogin }) {
             popup: "animate__animated animate__fadeOutUp",
           },
         });
-        setLogin(true);
+        setLogin(true, user.uid);
       })
       .catch((err) => {
-        if (err.code == "auth/email-already-in-use") {
+        if (err.code === "auth/email-already-in-use") {
           Swal.fire({
             icon: "error",
             title: "Ups...",
