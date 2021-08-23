@@ -37,6 +37,7 @@ function LoginForm({ setLogin }) {
         variant="outlined"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        type="email"
       />
       <TextField
         id="outlined-basic"

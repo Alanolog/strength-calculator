@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
 import validator from "validator";
 import Swal from "sweetalert2";
-import firebase, { db, auth } from "./firebase";
+import { database, auth } from "./firebase";
 function SignUpForm({ setLogin }) {
   const [email, setEmail] = useState("");
   const [email2, setEmail2] = useState("");
@@ -55,14 +55,26 @@ function SignUpForm({ setLogin }) {
         const databaseRef = database.ref();
         const userData = {
           email: email,
-          password: password,
+          lastLogin: Date.now(),
         };
-
         databaseRef.child("users/" + user.uid).set(userData);
-
         console.log("user created");
       })
-      .catch((err) => console.log(err.code, err.message));
+      .catch((err) => {
+        if (err.code == "auth/email-already-in-use") {
+          Swal.fire({
+            icon: "error",
+            title: "Ups...",
+            text: "Podany email jest już używany przez kogoś innego!",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: err.code,
+            text: err.message,
+          });
+        }
+      });
   }
   return (
     <form
@@ -86,6 +98,7 @@ function SignUpForm({ setLogin }) {
         variant="outlined"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        type="email"
       />
       <TextField
         id="outlined-basic"
@@ -93,6 +106,7 @@ function SignUpForm({ setLogin }) {
         variant="outlined"
         value={email2}
         onChange={(e) => setEmail2(e.target.value)}
+        type="email"
       />
       <TextField
         id="outlined-basic"
