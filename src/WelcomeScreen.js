@@ -2,14 +2,25 @@ import React, { useState, useEffect } from "react";
 import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
 import { db } from "./firebase";
+import LongMenu from "./Menu";
+import OneRepMaxCalc from "./OneRepMaxCalc";
 
 function WelcomeScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userUID, setUserUID] = useState(false);
   const [data, setData] = useState(false);
+  const [CurrOption, setCurrOption] = useState("OneRepMaxCalc");
   useEffect(() => {
     getData();
   }, [userUID]);
+  function currentElement(option) {
+    if (option === "Kalkulator maksymalnego ciężaru") {
+      setCurrOption("OneRepMaxCalc");
+    } else if (option === "kalkulator BMR") {
+      setCurrOption("BMRCalc");
+    }
+  }
+
   function setLogin(state, uid = "") {
     setIsLoggedIn(state);
     setUserUID(uid);
@@ -30,9 +41,9 @@ function WelcomeScreen() {
   if (!isLoggedIn) {
     return (
       <>
-        <h1 style={{ color: "gray" }}>
+        <h2 style={{ color: "#3f51b5" }}>
           Zaloguj się, jeżeli nie masz konta zarejestruj się!
-        </h1>
+        </h2>
         <div
           style={{
             display: "flex",
@@ -48,7 +59,24 @@ function WelcomeScreen() {
   } else if (userUID === false) {
     return <>Ładowanie...</>;
   } else {
-    return <>Jesteś zalogowany jako: {data.email}</>;
+    return (
+      <>
+        <div style={{ width: "100%", marginBottom: 20 }}>
+          <LongMenu currentElement={currentElement} />
+          <h3
+            style={{
+              float: "right",
+              width: "50%",
+              fontWeight: "600",
+              color: "#3f51b5",
+            }}
+          >
+            {data.email}
+          </h3>
+        </div>
+        {CurrOption === "OneRepMaxCalc" ? <OneRepMaxCalc /> : null}
+      </>
+    );
   }
 }
 
