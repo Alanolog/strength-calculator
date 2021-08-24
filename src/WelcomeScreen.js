@@ -10,14 +10,20 @@ function WelcomeScreen() {
   const [userUID, setUserUID] = useState(false);
   const [data, setData] = useState(false);
   const [CurrOption, setCurrOption] = useState("OneRepMaxCalc");
+
   useEffect(() => {
     getData();
   }, [userUID]);
+
   function currentElement(option) {
     if (option === "Kalkulator maksymalnego ciężaru") {
       setCurrOption("OneRepMaxCalc");
     } else if (option === "kalkulator BMR") {
       setCurrOption("BMRCalc");
+    } else if (option === "kalkulator FFMI") {
+      setCurrOption("FFMICalc");
+    } else if (option === "Ostatnie wyniki") {
+      setCurrOption("ResultsTracker");
     }
   }
 
@@ -61,11 +67,12 @@ function WelcomeScreen() {
   } else {
     return (
       <>
-        <div style={{ width: "100%", marginBottom: 20 }}>
+        <div style={{ width: "100%", marginBottom: 20, display: "flex" }}>
           <LongMenu currentElement={currentElement} />
           <h3
             style={{
               float: "right",
+              paddingRight: "5%",
               width: "50%",
               fontWeight: "600",
               color: "#3f51b5",
