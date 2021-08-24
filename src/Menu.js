@@ -4,17 +4,27 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
-const options = [
-  "Kalkulator maksymalnego ciężaru",
-  "kalkulator BMR",
-  "kalkulator FFMI",
-  "Ostatnie wyniki",
-];
-
-export default function LongMenu({ currentElement }) {
+export default function LongMenu({ setCurrOption }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const ITEM_HEIGHT = 48;
+  const options = [
+    "Kalkulator maksymalnego ciężaru",
+    "kalkulator BMR",
+    "kalkulator FFMI",
+    "Ostatnie wyniki",
+  ];
+  function currentElement(option, setCurrOption) {
+    if (option === "Kalkulator maksymalnego ciężaru") {
+      setCurrOption("OneRepMaxCalc");
+    } else if (option === "kalkulator BMR") {
+      setCurrOption("BMRCalc");
+    } else if (option === "kalkulator FFMI") {
+      setCurrOption("FFMICalc");
+    } else if (option === "Ostatnie wyniki") {
+      setCurrOption("ResultsTracker");
+    }
+  }
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -50,7 +60,7 @@ export default function LongMenu({ currentElement }) {
           <MenuItem
             key={option}
             onClick={(e) => {
-              currentElement(e.target.value);
+              currentElement(e.target.innerText, setCurrOption);
               handleClose();
             }}
           >

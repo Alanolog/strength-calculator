@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import LoginForm from "./LoginForm";
-import SignUpForm from "./SignUpForm";
 import { db } from "./firebase";
+import NotLoggedScreen from "./NotLoggedScreen";
 import LongMenu from "./Menu";
 import OneRepMaxCalc from "./OneRepMaxCalc";
 
@@ -13,19 +12,7 @@ function WelcomeScreen() {
 
   useEffect(() => {
     getData();
-  }, [userUID]);
-
-  function currentElement(option) {
-    if (option === "Kalkulator maksymalnego ciężaru") {
-      setCurrOption("OneRepMaxCalc");
-    } else if (option === "kalkulator BMR") {
-      setCurrOption("BMRCalc");
-    } else if (option === "kalkulator FFMI") {
-      setCurrOption("FFMICalc");
-    } else if (option === "Ostatnie wyniki") {
-      setCurrOption("ResultsTracker");
-    }
-  }
+  }, [userUID, CurrOption]);
 
   function setLogin(state, uid = "") {
     setIsLoggedIn(state);
@@ -45,30 +32,14 @@ function WelcomeScreen() {
       });
   }
   if (!isLoggedIn) {
-    return (
-      <>
-        <h2 style={{ color: "#3f51b5" }}>
-          Zaloguj się, jeżeli nie masz konta zarejestruj się!
-        </h2>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1rem",
-          }}
-        >
-          <LoginForm setLogin={setLogin} />
-          <SignUpForm setLogin={setLogin} />
-        </div>
-      </>
-    );
+    return <NotLoggedScreen setLogin={setLogin} />;
   } else if (userUID === false) {
     return <>Ładowanie...</>;
   } else {
     return (
       <>
         <div style={{ width: "100%", marginBottom: 20, display: "flex" }}>
-          <LongMenu currentElement={currentElement} />
+          <LongMenu setCurrOption={setCurrOption} />
           <h3
             style={{
               float: "right",
