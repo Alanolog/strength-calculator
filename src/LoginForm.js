@@ -37,7 +37,7 @@ function LoginForm({ setLogin }) {
         const userData = {
           lastLogin: Date.now(),
         };
-        db.collection("users").doc(user.uid).set(userData);
+        db.collection("users").doc(user.uid).update(userData);
         Swal.fire({
           title: "Zalogowałeś się na konto",
           showClass: {
@@ -122,7 +122,7 @@ function LoginForm({ setLogin }) {
         paddingRight: 5,
         display: "flex",
         flexDirection: "column",
-        width: "50%",
+        width: "100%",
         gap: "1rem",
         border: "1px solid lightgray",
         borderRadius: 20,

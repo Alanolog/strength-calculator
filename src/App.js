@@ -4,7 +4,7 @@ import Container from "@material-ui/core/Container";
 function App() {
   return (
     <Container
-      maxWidth="md"
+      maxWidth="sm"
       style={{ paddingTop: 20, paddingBottom: 20, backgroundColor: "white" }}
     >
       <WelcomeScreen />

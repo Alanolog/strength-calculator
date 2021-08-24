@@ -1,25 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
 import { db } from "./firebase";
+
 function WelcomeScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userUID, setUserUID] = useState("");
+  const [userUID, setUserUID] = useState(false);
+  const [data, setData] = useState(false);
+  useEffect(() => {
+    getData();
+  }, [userUID]);
   function setLogin(state, uid = "") {
     setIsLoggedIn(state);
     setUserUID(uid);
   }
   function getData() {
-    let html = "";
-    console.log(userUID);
-    db.collection("users")
-      .doc(userUID)
+    const docRef = db.collection("users").doc(`${userUID}`);
+    docRef
       .get()
       .then((doc) => {
-        html = doc.data().email;
+        if (doc.exists) {
+          setData(doc.data());
+        } else console.log("data don't exists");
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
       });
-    console.log(html);
-    return html;
   }
   if (!isLoggedIn) {
     return (
@@ -30,17 +36,19 @@ function WelcomeScreen() {
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            flexDirection: "column",
             gap: "1rem",
           }}
         >
-          <SignUpForm setLogin={setLogin} />
           <LoginForm setLogin={setLogin} />
+          <SignUpForm setLogin={setLogin} />
         </div>
       </>
     );
+  } else if (userUID === false) {
+    return <>Ładowanie...</>;
   } else {
-    return <>Jesteś zalogowany jako: {getData()}</>;
+    return <>Jesteś zalogowany jako: {data.email}</>;
   }
 }
 

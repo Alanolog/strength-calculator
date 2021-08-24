@@ -94,7 +94,7 @@ function SignUpForm({ setLogin }) {
         paddingRight: 5,
         display: "flex",
         flexDirection: "column",
-        width: "50%",
+        width: "100%",
         gap: "1rem",
         border: "1px solid lightgray",
         borderRadius: 20,
