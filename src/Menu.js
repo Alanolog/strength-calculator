@@ -11,12 +11,10 @@ const options = [
   "Ostatnie wyniki",
 ];
 
-const ITEM_HEIGHT = 48;
-
 export default function LongMenu({ currentElement }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-
+  const ITEM_HEIGHT = 48;
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };

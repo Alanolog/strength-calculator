@@ -3,6 +3,7 @@ import { TextField, Button } from "@material-ui/core";
 import validator from "validator";
 import Swal from "sweetalert2";
 import { db, auth } from "./firebase";
+import formStyle from "./welcomScreenFormStyleObject";
 function SignUpForm({ setLogin }) {
   const [email, setEmail] = useState("");
   const [email2, setEmail2] = useState("");
@@ -86,21 +87,7 @@ function SignUpForm({ setLogin }) {
       });
   }
   return (
-    <form
-      style={{
-        paddingTop: 20,
-        paddingBottom: 20,
-        paddingLeft: 5,
-        paddingRight: 5,
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-        gap: "1rem",
-        border: "1px solid lightgray",
-        borderRadius: 20,
-        justifyContent: "center",
-      }}
-    >
+    <form style={formStyle}>
       <TextField
         id="outlined-basic"
         label="Email"

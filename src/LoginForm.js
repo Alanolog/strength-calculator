@@ -1,78 +1,12 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
-import validator from "validator";
 import Swal from "sweetalert2";
 import { db, auth } from "./firebase";
+import loginButton from "./loginButton";
+import formStyle from "./welcomScreenFormStyleObject";
 function LoginForm({ setLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  function validateEmail() {
-    if (!validator.isEmail(email)) {
-      Swal.fire({
-        icon: "error",
-        title: "Ups...",
-        text: "Niestety to nie jest poprawny email!",
-      });
-      return false;
-    }
-  }
-  function validatePassword() {
-    if (password.length < 6) {
-      Swal.fire({
-        icon: "error",
-        title: "Ups...",
-        text: "Hasło jest za krótkie!",
-      });
-      return false;
-    }
-  }
-  function loginButton() {
-    if (validateEmail() === false || validatePassword() === false) {
-      return;
-    }
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        const user = auth.currentUser;
-        const userData = {
-          lastLogin: Date.now(),
-        };
-        db.collection("users").doc(user.uid).update(userData);
-        Swal.fire({
-          title: "Zalogowałeś się na konto",
-          showClass: {
-            popup: "animate__animated animate__fadeInDown",
-          },
-          hideClass: {
-            popup: "animate__animated animate__fadeOutUp",
-          },
-        });
-        setLogin(true, user.uid);
-      })
-      .catch((err) => {
-        if (err.code === "auth/user-not-found") {
-          Swal.fire({
-            icon: "error",
-            title: "Ups...",
-            text: "Nie znaleziono użytkownika z takim emailem!",
-          });
-        } else if (err.code === "auth/wrong-password") {
-          Swal.fire({
-            icon: "error",
-            title: "Ups...",
-            text: "Podałeś złe hasło!",
-          });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: err.code,
-            text: err.message,
-          });
-        }
-        setLogin(false);
-      });
-    return;
-  }
 
   function resetPassword() {
     auth.useDeviceLanguage();
@@ -114,21 +48,7 @@ function LoginForm({ setLogin }) {
   }
 
   return (
-    <form
-      style={{
-        paddingTop: 20,
-        paddingBottom: 20,
-        paddingLeft: 5,
-        paddingRight: 5,
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-        gap: "1rem",
-        border: "1px solid lightgray",
-        borderRadius: 20,
-        justifyContent: "center",
-      }}
-    >
+    <form style={formStyle}>
       <TextField
         id="outlined-basic"
         label="Email"
@@ -145,7 +65,13 @@ function LoginForm({ setLogin }) {
         onChange={(e) => setPassword(e.target.value)}
         type="password"
       />
-      <Button variant="contained" color="primary" onClick={loginButton}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          loginButton(email, password, setLogin);
+        }}
+      >
         Zaloguj się
       </Button>
       <Button variant="contained" onClick={resetPassword}>
