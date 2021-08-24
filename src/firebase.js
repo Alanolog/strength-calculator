@@ -13,6 +13,18 @@ const db = firebase.firestore();
 
 const auth = firebase.auth();
 const database = firebase.database();
-
-export { db, database, auth };
+function getData(userUID, setData) {
+  const docRef = db.collection("users").doc(`${userUID}`);
+  docRef
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        setData(doc.data());
+      } else console.log("data don't exists");
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
+    });
+}
+export { db, database, auth, getData };
 export default firebase;
