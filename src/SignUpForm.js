@@ -1,52 +1,16 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
-import validator from "validator";
 import Swal from "sweetalert2";
 import { db, auth } from "./firebase";
+import validateSignUp from "./validateSignUp";
 import formStyle from "./welcomScreenFormStyleObject";
 function SignUpForm({ setLogin }) {
   const [email, setEmail] = useState("");
   const [email2, setEmail2] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  function validateEmail() {
-    if (!validator.isEmail(email)) {
-      Swal.fire({
-        icon: "error",
-        title: "Ups...",
-        text: "Niestety to nie jest poprawny email!",
-      });
-      return false;
-    }
-    if (!validator.equals(email, email2)) {
-      Swal.fire({
-        icon: "error",
-        title: "Ups...",
-        text: "Emaile nie są takie same!",
-      });
-      return false;
-    }
-  }
-  function validatePassword() {
-    if (password.length < 6) {
-      Swal.fire({
-        icon: "error",
-        title: "Ups...",
-        text: "Hasło jest za krótkie!",
-      });
-      return false;
-    }
-    if (!validator.equals(password, password2)) {
-      Swal.fire({
-        icon: "error",
-        title: "Ups...",
-        text: "Hasła nie są takie same!",
-      });
-      return false;
-    }
-  }
   function signUpButton() {
-    if (validateEmail() === false || validatePassword() === false) {
+    if (validateSignUp(email, email2, password, password2)) {
       return;
     }
     auth
