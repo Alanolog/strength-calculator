@@ -2,7 +2,10 @@ import Swal from "sweetalert2";
 import { db, auth } from "./firebase";
 import validateSignUp from "./validateSignUp";
 
-function signUpButton({ email, email2, password, password2 }, setLogin) {
+function signUpButton(
+  { email, email2, password, password2, sex, birthDate },
+  setLogin
+) {
   if (validateSignUp(email, email2, password, password2)) {
     return;
   }
@@ -12,6 +15,8 @@ function signUpButton({ email, email2, password, password2 }, setLogin) {
       const user = auth.currentUser;
       const userData = {
         email: email,
+        sex: sex,
+        birthDate: birthDate,
         lastLogin: Date.now(),
       };
       db.collection("users").doc(user.uid).set(userData);
