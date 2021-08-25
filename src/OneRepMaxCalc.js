@@ -36,9 +36,11 @@ function OneRepMaxCalc() {
         </Button>
       </form>
       {max === "" ? null : (
-        <h3 style={{ color: "#3f51b5" }}>Twój one rep max wynosi: {max}kg</h3>
+        <>
+          <h3 style={{ color: "#3f51b5" }}>Twój one rep max wynosi: {max}kg</h3>
+          <MaxWeightPerRepTable max={max} />
+        </>
       )}
-      <MaxWeightPerRepTable max={max} />
     </>
   );
 }
