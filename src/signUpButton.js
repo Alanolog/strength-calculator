@@ -7,7 +7,7 @@ function signUpButton(
   setLogin
 ) {
   if (validateSignUp(email, email2, password, password2)) {
-    return;
+    window.location.reload();
   }
   auth
     .createUserWithEmailAndPassword(email, password)
@@ -16,7 +16,7 @@ function signUpButton(
       const userData = {
         email: email,
         sex: sex,
-        birthDate: birthDate,
+        birthDate: Date.parse(birthDate),
         lastLogin: Date.now(),
       };
       db.collection("users").doc(user.uid).set(userData);
@@ -37,6 +37,12 @@ function signUpButton(
           icon: "error",
           title: "Ups...",
           text: "Podany email jest już używany przez kogoś innego!",
+        });
+      } else if (err.code === "auth/weak-password") {
+        Swal.fire({
+          icon: "error",
+          title: "Ups...",
+          text: "Hasło musi mieć co najmniej 6 liter!",
         });
       } else {
         Swal.fire({

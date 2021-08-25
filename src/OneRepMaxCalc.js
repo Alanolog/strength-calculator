@@ -10,6 +10,9 @@ function OneRepMaxCalc() {
 
   return (
     <>
+      <h2 style={{ color: "#3f51b5", textAlign: "center" }}>
+        Kalkulator One Rep Max
+      </h2>
       <form style={formStyle}>
         <TextField
           id="outlined-basic"

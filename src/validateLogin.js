@@ -21,7 +21,7 @@ function validatePassword(password) {
   }
 }
 function validateLogin(email, password) {
-  validateEmail(email);
-  validatePassword(password);
+  if (validateEmail(email) === false) return false;
+  if (validatePassword(password) === false) return false;
 }
 export default validateLogin;

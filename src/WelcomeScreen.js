@@ -4,21 +4,21 @@ import NotLoggedScreen from "./NotLoggedScreen";
 import CalcsComponent from "./CalcsComponent";
 function WelcomeScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userUID, setUserUID] = useState(false);
+  const [userUID, setUserUID] = useState(0);
   const [data, setData] = useState(false);
 
   useEffect(() => {
     getData(userUID, setData);
   }, [userUID]);
 
-  function setLogin(state, uid = "") {
+  function setLogin(state, uid = 0) {
     setIsLoggedIn(state);
     setUserUID(uid);
   }
-
+  console.log(data);
   if (!isLoggedIn) {
     return <NotLoggedScreen setLogin={setLogin} />;
-  } else if (userUID === false) {
+  } else if (userUID === 0) {
     return <>Ładowanie...</>;
   } else {
     return <CalcsComponent data={data} />;

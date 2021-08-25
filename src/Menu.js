@@ -10,16 +10,16 @@ export default function LongMenu({ setCurrOption }) {
   const ITEM_HEIGHT = 48;
   const options = [
     "Kalkulator maksymalnego ciężaru",
-    "kalkulator BMR",
-    "kalkulator FFMI",
+    "Kalkulator BMR",
+    "Kalkulator FFMI",
     "Ostatnie wyniki",
   ];
   function currentElement(option, setCurrOption) {
     if (option === "Kalkulator maksymalnego ciężaru") {
       setCurrOption("OneRepMaxCalc");
-    } else if (option === "kalkulator BMR") {
+    } else if (option === "Kalkulator BMR") {
       setCurrOption("BMRCalc");
-    } else if (option === "kalkulator FFMI") {
+    } else if (option === "Kalkulator FFMI") {
       setCurrOption("FFMICalc");
     } else if (option === "Ostatnie wyniki") {
       setCurrOption("ResultsTracker");

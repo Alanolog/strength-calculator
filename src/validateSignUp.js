@@ -38,7 +38,7 @@ function validatePassword(password, password2) {
   }
 }
 function validateSignUp(email, email2, password, password2) {
-  validateEmail(email, email2);
-  validatePassword(password, password2);
+  if (validateEmail(email, email2) === false) return false;
+  if (validatePassword(password, password2) === false) return false;
 }
 export default validateSignUp;

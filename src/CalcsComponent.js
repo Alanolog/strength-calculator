@@ -20,14 +20,19 @@ function CalcsComponent({ data }) {
             fontWeight: "600",
             color: "#3f51b5",
             paddingTop: "2%",
+            textDecoration: "none",
           }}
-          onClick={() => window.location.reload()}
+          href="./index.html"
+          onClick={(e) => {
+            e.preventDefault();
+            window.location.reload();
+          }}
         >
           Wyloguj
         </a>
       </div>
       {CurrOption === "OneRepMaxCalc" ? <OneRepMaxCalc /> : null}
-      {CurrOption === "OneRepMaxCalc" ? <BMRCalc data={data} /> : null}
+      {CurrOption === "BMRCalc" ? <BMRCalc data={data} /> : null}
     </>
   );
 }
