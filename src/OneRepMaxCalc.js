@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
 import formStyle from "./welcomScreenFormStyleObject";
 import calcOneRepMax from "./calcOneRepMax";
+import MaxWeightPerRepTable from "./MaxWeightPerRepTable";
 function OneRepMaxCalc() {
   const [weight, setWeight] = useState("");
   const [reps, setReps] = useState("");
@@ -37,6 +38,7 @@ function OneRepMaxCalc() {
       {max === "" ? null : (
         <h3 style={{ color: "#3f51b5" }}>Twój one rep max wynosi: {max}kg</h3>
       )}
+      <MaxWeightPerRepTable max={max} />
     </>
   );
 }
