@@ -6,7 +6,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 function FFMITable() {
   return (
-    <Table style={{ marginTop: 50 }}>
+    <Table style={{ marginTop: 20, marginBottom: 20 }}>
       <TableHead>
         <TableRow>
           <TableCell>Zakres FFMI</TableCell>
