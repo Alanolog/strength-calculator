@@ -15,13 +15,12 @@ function WelcomeScreen() {
     setIsLoggedIn(state);
     setUserUID(uid);
   }
-  console.log(data);
   if (!isLoggedIn) {
     return <NotLoggedScreen setLogin={setLogin} />;
   } else if (userUID === 0) {
     return <>Ładowanie...</>;
   } else {
-    return <CalcsComponent data={data} />;
+    return <CalcsComponent data={data} setIsLoggedIn={setIsLoggedIn} />;
   }
 }
 

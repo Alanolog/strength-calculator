@@ -26,5 +26,10 @@ function getData(userUID, setData) {
       console.log("Error getting document:", error);
     });
 }
-export { db, database, auth, getData };
+function logout(setIsLoggedIn) {
+  auth.signOut().then(() => {
+    setIsLoggedIn(false);
+  });
+}
+export { db, database, auth, getData, logout };
 export default firebase;

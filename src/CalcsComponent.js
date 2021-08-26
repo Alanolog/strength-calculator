@@ -3,7 +3,8 @@ import LongMenu from "./Menu";
 import OneRepMaxCalc from "./OneRepMaxCalc";
 import BMRCalc from "./BMRCalc";
 import FFMICalc from "./FFMICalc";
-function CalcsComponent({ data }) {
+import { logout } from "./firebase";
+function CalcsComponent({ data, setIsLoggedIn }) {
   const [CurrOption, setCurrOption] = useState("OneRepMaxCalc");
 
   useEffect(() => {}, [CurrOption]);
@@ -26,7 +27,7 @@ function CalcsComponent({ data }) {
           href="./index.html"
           onClick={(e) => {
             e.preventDefault();
-            window.location.reload();
+            logout(setIsLoggedIn);
           }}
         >
           Wyloguj
