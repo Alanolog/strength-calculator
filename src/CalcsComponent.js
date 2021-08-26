@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import LongMenu from "./Menu";
 import OneRepMaxCalc from "./OneRepMaxCalc";
 import BMRCalc from "./BMRCalc";
+import FFMICalc from "./FFMICalc";
 function CalcsComponent({ data }) {
   const [CurrOption, setCurrOption] = useState("OneRepMaxCalc");
 
@@ -33,6 +34,7 @@ function CalcsComponent({ data }) {
       </div>
       {CurrOption === "OneRepMaxCalc" ? <OneRepMaxCalc /> : null}
       {CurrOption === "BMRCalc" ? <BMRCalc data={data} /> : null}
+      {CurrOption === "FFMICalc" ? <FFMICalc /> : null}
     </>
   );
 }
