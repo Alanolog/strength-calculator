@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
 import formStyle from "./welcomScreenFormStyleObject";
 import calcFFMI from "./calcFFMI";
+import FFMITable from "./FFMITable";
 function FFMICalc() {
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
@@ -50,6 +51,7 @@ function FFMICalc() {
         <>
           <p>Twoje FFMI wynosi {FFMI}</p>
           <p>Po normalizacji FFMI wynosi {normalizedFFMI}</p>
+          <FFMITable />
         </>
       ) : null}
     </>
