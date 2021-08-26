@@ -11,7 +11,7 @@ function FFMICalc() {
   const [normalizedFFMI, setNormalizedFFMI] = useState("");
   return (
     <>
-      <h2 style={{ color: "#3f51b5", textAlign: "center" }}>Kalkulator BMR</h2>
+      <h2 style={{ color: "#3f51b5", textAlign: "center" }}>Kalkulator FFMI</h2>
       <form style={formStyle}>
         <TextField
           id="outlined-basic"
