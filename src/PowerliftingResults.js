@@ -10,11 +10,9 @@ import formStyle from "./welcomScreenFormStyleObject";
 import addResult from "./addResult";
 function PowerliftingResults() {
   const options = ["Przysiad ze sztangą", "Martwy ciąg", "Wyciskanie leżąc"];
-
   const [weight, setWeight] = useState("");
   const [reps, setReps] = useState("");
   const [currOption, setCurrOption] = useState(`${options[0]}`);
-
   return (
     <>
       <h2 style={{ color: "#3f51b5", textAlign: "center" }}>
@@ -60,6 +58,7 @@ function PowerliftingResults() {
             addResult({
               weight: weight,
               reps: reps,
+              option: currOption,
             })
           }
         >
