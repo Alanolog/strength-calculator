@@ -7,6 +7,7 @@ import {
   InputLabel,
 } from "@material-ui/core";
 import formStyle from "./welcomScreenFormStyleObject";
+import addResult from "./addResult";
 function PowerliftingResults() {
   const options = ["Przysiad ze sztangą", "Martwy ciąg", "Wyciskanie leżąc"];
 
@@ -55,7 +56,12 @@ function PowerliftingResults() {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => console.log("dupa")}
+          onClick={() =>
+            addResult({
+              weight: weight,
+              reps: reps,
+            })
+          }
         >
           Zapisz swój wynik
         </Button>
