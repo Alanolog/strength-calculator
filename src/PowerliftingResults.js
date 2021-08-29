@@ -8,11 +8,7 @@ import {
 } from "@material-ui/core";
 import formStyle from "./welcomScreenFormStyleObject";
 function PowerliftingResults() {
-  const options = [
-    "Przysiad z sztangą",
-    "Martwy ciąg",
-    "Wyciskanie sztangi na ławce prostej",
-  ];
+  const options = ["Przysiad ze sztangą", "Martwy ciąg", "Wyciskanie leżąc"];
 
   const [weight, setWeight] = useState("");
   const [reps, setReps] = useState("");
@@ -32,7 +28,11 @@ function PowerliftingResults() {
           onChange={(e) => setCurrOption(e.target.value)}
         >
           {options.map((el, i) => {
-            return <MenuItem key={i}>{el}</MenuItem>;
+            return (
+              <MenuItem value={el} key={i}>
+                {el}
+              </MenuItem>
+            );
           })}
         </Select>
 
@@ -57,7 +57,7 @@ function PowerliftingResults() {
           color="primary"
           onClick={() => console.log("dupa")}
         >
-          Oblicz swoje FFMI
+          Zapisz swój wynik
         </Button>
       </form>
     </>
