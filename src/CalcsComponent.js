@@ -3,6 +3,7 @@ import LongMenu from "./Menu";
 import OneRepMaxCalc from "./OneRepMaxCalc";
 import BMRCalc from "./BMRCalc";
 import FFMICalc from "./FFMICalc";
+import PowerliftingResults from "./PowerliftingResults";
 import { logout } from "./firebase";
 function CalcsComponent({ data, setIsLoggedIn }) {
   const [CurrOption, setCurrOption] = useState("OneRepMaxCalc");
@@ -36,6 +37,7 @@ function CalcsComponent({ data, setIsLoggedIn }) {
       {CurrOption === "OneRepMaxCalc" ? <OneRepMaxCalc /> : null}
       {CurrOption === "BMRCalc" ? <BMRCalc data={data} /> : null}
       {CurrOption === "FFMICalc" ? <FFMICalc /> : null}
+      {CurrOption === "PowerliftingResults" ? <PowerliftingResults /> : null}
     </>
   );
 }

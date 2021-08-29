@@ -12,7 +12,7 @@ export default function LongMenu({ setCurrOption }) {
     "Kalkulator maksymalnego ciężaru",
     "Kalkulator BMR",
     "Kalkulator FFMI",
-    "Ostatnie wyniki",
+    "Wyniki w trójboju",
   ];
   function currentElement(option, setCurrOption) {
     if (option === "Kalkulator maksymalnego ciężaru") {
@@ -21,8 +21,8 @@ export default function LongMenu({ setCurrOption }) {
       setCurrOption("BMRCalc");
     } else if (option === "Kalkulator FFMI") {
       setCurrOption("FFMICalc");
-    } else if (option === "Ostatnie wyniki") {
-      setCurrOption("ResultsTracker");
+    } else if (option === "Wyniki w trójboju") {
+      setCurrOption("PowerliftingResults");
     }
   }
   const handleClick = (event) => {
