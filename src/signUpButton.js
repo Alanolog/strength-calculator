@@ -18,6 +18,9 @@ function signUpButton(
         sex: sex,
         birthDate: Date.parse(birthDate),
         lastLogin: Date.now(),
+        bench: [],
+        deadlift: [],
+        squat: [],
       };
       db.collection("users").doc(user.uid).set(userData);
       Swal.fire({
