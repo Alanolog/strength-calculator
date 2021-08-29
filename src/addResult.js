@@ -1,6 +1,23 @@
 import firebase from "firebase";
 import calcOneRepMax from "./calcOneRepMax";
+import Swal from "sweetalert2";
 function addResult({ weight, reps, option }) {
+  if (weight === "") {
+    Swal.fire({
+      icon: "error",
+      title: "Puste pole!",
+      text: "Wprowadź wage sztangi!",
+    });
+    return;
+  }
+  if (reps === "") {
+    Swal.fire({
+      icon: "error",
+      title: "Puste pole!",
+      text: "Wprowadź ilość powtórzeń!",
+    });
+    return;
+  }
   let type =
     option === "Przysiad ze sztangą"
       ? "squat"
@@ -15,7 +32,6 @@ function addResult({ weight, reps, option }) {
   let currTime = new Date();
   const userUID = firebase.auth().currentUser.uid;
   const max = calcOneRepMax(reps, weight);
-  console.log(firebase.auth());
   firebase
     .firestore()
     .collection("users")
@@ -40,7 +56,15 @@ function addResult({ weight, reps, option }) {
             ],
           })
           .then(() => {
-            console.log("Document successfully updated!");
+            Swal.fire({
+              title: "Dodałeś wynik w boju :)",
+              showClass: {
+                popup: "animate__animated animate__fadeInDown",
+              },
+              hideClass: {
+                popup: "animate__animated animate__fadeOutUp",
+              },
+            });
           })
           .catch((error) => {
             // The document probably doesn't exist.
