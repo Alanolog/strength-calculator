@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import formStyle from "./welcomScreenFormStyleObject";
 import addResult from "./addResult";
+import ChartWithResults from "./ChartWithResults";
 function PowerliftingResults() {
   const options = ["Przysiad ze sztangą", "Martwy ciąg", "Wyciskanie leżąc"];
   const [weight, setWeight] = useState("");
@@ -65,6 +66,7 @@ function PowerliftingResults() {
           Zapisz swój wynik
         </Button>
       </form>
+      <ChartWithResults />
     </>
   );
 }
