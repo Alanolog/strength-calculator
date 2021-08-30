@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { auth, db } from "./firebase";
+import sortDataByDate from "./sortDataByDate";
 import { Line } from "react-chartjs-2";
-
 function ChartWithResults({ option }) {
   const userUID = auth.currentUser.uid;
   const [data, setData] = useState([]);
-  let state = {
+  const [state, setState] = useState({
     labels: [...dates],
     datasets: [
       {
@@ -18,11 +18,11 @@ function ChartWithResults({ option }) {
         data: [...weights],
       },
     ],
-  };
+  });
   useEffect(() => {
-    getData(userUID, setData);
+    setDataInState(userUID, setData);
   }, [option]);
-  function getData(userUID, setData) {
+  function setDataInState(userUID, setData, setState) {
     const docRef = db.collection("users").doc(`${userUID}`);
     docRef
       .get()
@@ -44,7 +44,7 @@ function ChartWithResults({ option }) {
         weights = data.map((el) => {
           return el.estimatedMax;
         });
-        state = {
+        setState({
           labels: [...dates],
           datasets: [
             {
@@ -57,24 +57,11 @@ function ChartWithResults({ option }) {
               data: [...weights],
             },
           ],
-        };
+        });
       })
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }
-  function sortDataByDate(data, option, setData) {
-    let type =
-      option === "Przysiad ze sztangą"
-        ? data.squat
-        : option === "Martwy ciąg"
-        ? data.deadlift
-        : option === "Wyciskanie leżąc"
-        ? data.bench
-        : null;
-    setData(
-      type.sort((a, b) => (a.date > b.date ? 1 : b.date > a.date ? -1 : 0))
-    );
   }
 
   return (
