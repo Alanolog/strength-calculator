@@ -1,13 +1,69 @@
 import React, { useState, useEffect } from "react";
-import { auth, getData } from "./firebase";
+import { auth, db } from "./firebase";
 import { Line } from "react-chartjs-2";
 
 function ChartWithResults({ option }) {
   const userUID = auth.currentUser.uid;
   const [data, setData] = useState([]);
+  let dates = [];
+  let weights = [];
+  let state = {
+    labels: [...dates],
+    datasets: [
+      {
+        label: option,
+        fill: false,
+        lineTension: 0.5,
+        backgroundColor: "rgba(75,192,192,1)",
+        borderColor: "rgba(0,0,0,1)",
+        borderWidth: 1,
+        data: [...weights],
+      },
+    ],
+  };
   useEffect(() => {
+    function getData(userUID, setData) {
+      const docRef = db.collection("users").doc(`${userUID}`);
+      docRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            setData(doc.data());
+            sortDataByDate(doc.data(), option, setData);
+          } else console.log("data don't exists");
+        })
+        .then(() => {
+          dates = data.map((el) => {
+            let date = new Date(el.date);
+            return `${date.getDate()}/${
+              date.getMonth() + 1
+            }/${date.getFullYear()}`;
+          });
+          weights = data.map((el) => {
+            return el.estimatedMax;
+          });
+        })
+        .then(() => {
+          state = {
+            labels: [...dates],
+            datasets: [
+              {
+                label: option,
+                fill: false,
+                lineTension: 0.5,
+                backgroundColor: "rgba(75,192,192,1)",
+                borderColor: "rgba(0,0,0,1)",
+                borderWidth: 1,
+                data: [...weights],
+              },
+            ],
+          };
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+    }
     getData(userUID, setData);
-    setTimeout(sortDataByDate(data, option, setData), 1000);
   }, [option]);
   function sortDataByDate(data, option, setData) {
     let type =
@@ -23,21 +79,6 @@ function ChartWithResults({ option }) {
     );
   }
 
-  const state = {
-    labels: ["January", "February", "March", "April", "May"],
-    datasets: [
-      {
-        label: option,
-        fill: false,
-        lineTension: 0.5,
-        backgroundColor: "rgba(75,192,192,1)",
-        borderColor: "rgba(0,0,0,1)",
-        borderWidth: 1,
-        data: [65, 59, 80, 81, 56],
-      },
-    ],
-  };
-
   return (
     <div>
       <Line
@@ -45,7 +86,7 @@ function ChartWithResults({ option }) {
         options={{
           title: {
             display: true,
-            text: "Average Rainfall per month",
+            text: "Przewidywany One Rep Max",
             fontSize: 20,
           },
           legend: {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   Button,
@@ -14,6 +14,7 @@ function PowerliftingResults() {
   const [weight, setWeight] = useState("");
   const [reps, setReps] = useState("");
   const [currOption, setCurrOption] = useState(`${options[0]}`);
+  useEffect(() => {}, [currOption]);
   return (
     <>
       <h2 style={{ color: "#3f51b5", textAlign: "center" }}>
