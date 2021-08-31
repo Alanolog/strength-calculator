@@ -28,7 +28,31 @@ function ChartWithResults({}) {
   const [state, setState] = useState(x);
   const [option, setOption] = useState(`${options[0]}`);
   useEffect(() => {
-    setDataInState(userUID, option, setData, setState);
+    setDataInState(userUID, option, setData);
+    let dates = [];
+    let weights = [];
+    dates = data.map((el) => {
+      let date = new Date(el.date);
+      return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    });
+    weights = data.map((el) => {
+      return el.estimatedMax;
+    });
+    setState({
+      labels: [...dates],
+      datasets: [
+        {
+          label: option,
+          fill: false,
+          lineTension: 0.5,
+          backgroundColor: "rgba(75,192,192,1)",
+          borderColor: "rgba(0,0,0,1)",
+          borderWidth: 1,
+          data: [...weights],
+        },
+      ],
+    });
+    console.log(weights, dates);
   }, [option]);
   return (
     <>
@@ -39,7 +63,9 @@ function ChartWithResults({}) {
           labelId="label"
           id="select"
           value={option}
-          onChange={(e) => setOption(e.target.value)}
+          onChange={(e) => {
+            setOption(e.target.value);
+          }}
         >
           {options.map((el, i) => {
             return (
