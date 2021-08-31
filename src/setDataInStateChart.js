@@ -1,13 +1,15 @@
 import { db } from "./firebase";
 import sortDataByDate from "./sortDataByDate";
 function setDataInState(userUID, option, setData, setState) {
+  let data = [];
   const docRef = db.collection("users").doc(`${userUID}`);
   docRef
     .get()
     .then((doc) => {
       if (doc.exists) {
         setData(doc.data());
-        sortDataByDate(doc.data(), option, setData);
+        data = doc.data();
+        sortDataByDate(data, option, setData);
       } else console.log("data don't exists");
     })
     .then(() => {

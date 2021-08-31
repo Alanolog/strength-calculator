@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { auth } from "./firebase";
 import { Line } from "react-chartjs-2";
-function ChartWithResults({ option }) {
-  const userUID = auth.currentUser.uid;
-  const [data, setData] = useState([]);
-  const [state, setState] = useState({
+import setDataInState from "./setDataInStateChart";
+import { Select, MenuItem, InputLabel } from "@material-ui/core";
+function ChartWithResults({}) {
+  let dates = [];
+  let weights = [];
+  const x = {
     labels: [...dates],
     datasets: [
       {
-        label: option,
+        label: "Przysiad ze sztangą",
         fill: false,
         lineTension: 0.5,
         backgroundColor: "rgba(75,192,192,1)",
@@ -17,27 +19,54 @@ function ChartWithResults({ option }) {
         data: [...weights],
       },
     ],
-  });
+  };
+
+  const userUID = auth.currentUser.uid;
+  const options = ["Przysiad ze sztangą", "Martwy ciąg", "Wyciskanie leżąc"];
+
+  const [data, setData] = useState([]);
+  const [state, setState] = useState(x);
+  const [option, setOption] = useState(`${options[0]}`);
   useEffect(() => {
     setDataInState(userUID, option, setData, setState);
   }, [option]);
   return (
-    <div>
-      <Line
-        data={state}
-        options={{
-          title: {
-            display: true,
-            text: "Przewidywany One Rep Max",
-            fontSize: 20,
-          },
-          legend: {
-            display: true,
-            position: "right",
-          },
-        }}
-      />
-    </div>
+    <>
+      <form style={{ width: "100%", marginTop: 20, marginBottom: 20 }}>
+        <InputLabel id="label">Wybierz bój</InputLabel>
+        <Select
+          style={{ width: "100%", marginTop: 20, marginBottom: 20 }}
+          labelId="label"
+          id="select"
+          value={option}
+          onChange={(e) => setOption(e.target.value)}
+        >
+          {options.map((el, i) => {
+            return (
+              <MenuItem value={el} key={i}>
+                {el}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </form>
+      <div>
+        <Line
+          data={state}
+          options={{
+            title: {
+              display: true,
+              text: "Przewidywany One Rep Max",
+              fontSize: 20,
+            },
+            legend: {
+              display: true,
+              position: "right",
+            },
+          }}
+        />
+      </div>
+    </>
   );
 }
 export default ChartWithResults;

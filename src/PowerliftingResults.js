@@ -67,7 +67,7 @@ function PowerliftingResults() {
           Zapisz swój wynik
         </Button>
       </form>
-      <ChartWithResults option={currOption} />
+      <ChartWithResults />
     </>
   );
 }
