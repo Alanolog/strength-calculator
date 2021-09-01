@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getData } from "./firebase";
 import NotLoggedScreen from "./NotLoggedScreen";
 import CalcsComponent from "./CalcsComponent";
+import Footer from "./Footer";
 function WelcomeScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userUID, setUserUID] = useState(0);
@@ -20,7 +21,12 @@ function WelcomeScreen() {
   } else if (userUID === 0) {
     return <>Ładowanie...</>;
   } else {
-    return <CalcsComponent data={data} setIsLoggedIn={setIsLoggedIn} />;
+    return (
+      <>
+        <CalcsComponent data={data} setIsLoggedIn={setIsLoggedIn} />
+        <Footer />
+      </>
+    );
   }
 }
 
