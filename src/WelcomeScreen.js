@@ -17,9 +17,19 @@ function WelcomeScreen() {
     setUserUID(uid);
   }
   if (!isLoggedIn) {
-    return <NotLoggedScreen setLogin={setLogin} />;
+    return (
+      <>
+        <NotLoggedScreen setLogin={setLogin} />
+        <Footer />
+      </>
+    );
   } else if (userUID === 0) {
-    return <>Ładowanie...</>;
+    return (
+      <>
+        Ładowanie...
+        <Footer />
+      </>
+    );
   } else {
     return (
       <>

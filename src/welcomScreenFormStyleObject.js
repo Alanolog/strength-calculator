@@ -1,14 +1,14 @@
 const formStyle = {
   paddingTop: 20,
   paddingBottom: 20,
-  paddingLeft: 5,
-  paddingRight: 5,
+  paddingLeft: "5%",
+  paddingRight: "5%",
   display: "flex",
   flexDirection: "column",
-  width: "100%",
+  width: "90%",
   gap: "1rem",
   border: "1px solid lightgray",
-  borderRadius: 20,
+  borderRadius: 50,
   justifyContent: "center",
 };
 export default formStyle;
