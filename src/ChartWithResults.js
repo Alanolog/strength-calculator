@@ -35,9 +35,16 @@ function ChartWithResults() {
   return (
     <>
       <form style={{ width: "100%", marginTop: 20, marginBottom: 20 }}>
-        <InputLabel id="label">Wybierz bój</InputLabel>
+        <InputLabel id="label" style={{ textAlign: "center" }}>
+          Wybierz bój
+        </InputLabel>
         <Select
-          style={{ width: "100%", marginTop: 20, marginBottom: 20 }}
+          style={{
+            width: "100%",
+            marginTop: 20,
+            marginBottom: 20,
+            textAlign: "center",
+          }}
           labelId="label"
           id="select"
           value={option}

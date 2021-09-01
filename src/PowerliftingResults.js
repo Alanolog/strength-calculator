@@ -21,11 +21,14 @@ function PowerliftingResults() {
         Zapisz swój ostatni wynik w danym boju
       </h2>
       <form style={formStyle}>
-        <InputLabel id="label">Wybierz bój</InputLabel>
+        <InputLabel id="label" style={{ textAlign: "center" }}>
+          Wybierz bój
+        </InputLabel>
         <Select
           labelId="label"
           id="select"
           value={currOption}
+          style={{ textAlign: "center" }}
           onChange={(e) => setCurrOption(e.target.value)}
         >
           {options.map((el, i) => {
