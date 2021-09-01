@@ -22,6 +22,5 @@ function showDataInChart({ data, option }, setState) {
       },
     ],
   });
-  console.log(weights, dates);
 }
 export default showDataInChart;
